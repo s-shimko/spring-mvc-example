@@ -15,12 +15,7 @@ import java.util.List;
  */
 public class SuperService {
 
-    public static final String URL = "jdbc:mysql://localhost:3306/guber";
-    public static final String USER_NAME = "root";
-    public static final String PASSWORD = "pass";
-
     private JdbcTemplate jdbcTemplate;
-    private SimpleJdbcInsert insertTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 
@@ -35,7 +30,6 @@ public class SuperService {
     public void setDataSource(DataSource dataSource) {  // <---- Inject DataSource through setter
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-        this.insertTemplate = new SimpleJdbcInsert(dataSource).withTableName("cab");
     }
 
     public List<Cab> getCabs() {

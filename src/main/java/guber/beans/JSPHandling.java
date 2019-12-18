@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,13 +33,11 @@ public class JSPHandling {
 		return modelAndView;
 	}
 
-	@GetMapping(value = "/{manufactureYear}")
+//	@GetMapping(value = "/{manufactureYear}")
+	@RequestMapping(value = "/{manufactureYear}", method = RequestMethod.GET)
 	public String get(@PathVariable("manufactureYear") int manufactureYear, Model model) {
-
-
 		Cab cab = superService.findByYear(manufactureYear);
 		model.addAttribute("cab", cab);
-
 		return "cab";
 	}
 }

@@ -117,24 +117,38 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.4.24.v20191120</version>
                 <configuration>
+<!--                    <context-param>-->
+<!--                        <param-name>contextConfigLocation</param-name>-->
+<!--                        <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>-->
+<!--                    </context-param>-->
+                    <supportedPackagings>jar</supportedPackagings>
                     <httpConnector>
-                        <port>8080</port>
+                        <port>8091</port>
                         <host>localhost</host>
                     </httpConnector>
-                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <webApp>
+                        <overrideDescriptor>src/main/web/WEB-INF/web.xml</overrideDescriptor>
+                        <resourceBases>
+                            <resourceBase>src/main/web</resourceBase>
+                        </resourceBases>
+                        <contextPath>/test</contextPath>
+                    </webApp>
+                    <stopPort>9966</stopPort>
+                    <stopKey>jetty-stop</stopKey>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
                 </configuration>
             </plugin>
 
-<!--            <plugin>-->
-<!--                <groupId>org.mortbay.jetty</groupId>-->
-<!--                <artifactId>maven-jetty-plugin</artifactId>-->
-<!--                <version>6.1.26</version>-->
-<!--                <configuration>-->
-<!--                    <webAppSourceDirectory>src/main/web</webAppSourceDirectory>-->
-<!--                    <scanIntervalSeconds>10</scanIntervalSeconds>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.mortbay.jetty</groupId>-->
+            <!--                <artifactId>maven-jetty-plugin</artifactId>-->
+            <!--                <version>6.1.26</version>-->
+            <!--                <configuration>-->
+            <!--                    <webAppSourceDirectory>src/main/web</webAppSourceDirectory>-->
+            <!--                    <scanIntervalSeconds>10</scanIntervalSeconds>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
-    
+
 </project>

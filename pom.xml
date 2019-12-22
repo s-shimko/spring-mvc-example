@@ -14,6 +14,7 @@
         <junit.version>5.3.1</junit.version>
         <servlet.version>3.1.0</servlet.version>
         <mysql.connector.version>5.1.9</mysql.connector.version>
+        <!--<jetty.version>9.3.0.M1</jetty.version>-->
     </properties>
     <dependencies>
         <!-- Junit -->
@@ -98,6 +99,33 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.28</version>
         </dependency>
+
+        <!--&lt;!&ndash;Jetty&ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>org.eclipse.jetty</groupId>-->
+        <!--<artifactId>jetty-server</artifactId>-->
+        <!--<version>${jetty.version}</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; Web Application Context Handler &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>org.eclipse.jetty</groupId>-->
+        <!--<artifactId>jetty-webapp</artifactId>-->
+        <!--<version>${jetty.version}</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; Поддержка спецификации аннотации сервлетов, требуется только при запуске Jetty-сервера с конфигураторами &ndash;&gt;-->
+        <!--&lt;!&ndash; Для прямого (упрощенного) запуска Jetty не требуется &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>org.eclipse.jetty</groupId>-->
+        <!--<artifactId>jetty-annotations</artifactId>-->
+        <!--<version>${jetty.version}</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; Требуется в Runtime компиляции JSP, Jetty имплементация JSP &ndash;&gt;-->
+        <!--&lt;!&ndash; При отсутствии в проекте jsp-файлов не требуется &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>org.eclipse.jetty</groupId>-->
+        <!--<artifactId>jetty-jsp</artifactId>-->
+        <!--<version>${jetty.version}</version>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>
@@ -112,42 +140,51 @@
                 </configuration>
             </plugin>
 
+            <!--<plugin>-->
+            <!--<groupId>org.eclipse.jetty</groupId>-->
+            <!--<artifactId>jetty-maven-plugin</artifactId>-->
+            <!--<version>9.4.24.v20191120</version>-->
+            <!--<configuration>-->
+            <!--&lt;!&ndash;                    <context-param>&ndash;&gt;-->
+            <!--&lt;!&ndash;                        <param-name>contextConfigLocation</param-name>&ndash;&gt;-->
+            <!--&lt;!&ndash;                        <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>&ndash;&gt;-->
+            <!--&lt;!&ndash;                    </context-param>&ndash;&gt;-->
+            <!--<supportedPackagings>jar</supportedPackagings>-->
+            <!--<httpConnector>-->
+            <!--<port>8091</port>-->
+            <!--<host>localhost</host>-->
+            <!--</httpConnector>-->
+            <!--<webApp>-->
+            <!--<contextPath>test</contextPath>-->
+            <!--<overrideDescriptor>src/main/web/WEB-INF/web.xml</overrideDescriptor>-->
+            <!--<resourceBases>-->
+            <!--<resourceBase>src/main/web</resourceBase>-->
+            <!--</resourceBases>-->
+            <!--<contextPath>/test</contextPath>-->
+            <!--</webApp>-->
+            <!--<stopPort>9966</stopPort>-->
+            <!--<stopKey>jetty-stop</stopKey>-->
+            <!--<scanIntervalSeconds>5</scanIntervalSeconds>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.24.v20191120</version>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.26</version>
                 <configuration>
-<!--                    <context-param>-->
-<!--                        <param-name>contextConfigLocation</param-name>-->
-<!--                        <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>-->
-<!--                    </context-param>-->
-                    <supportedPackagings>jar</supportedPackagings>
-                    <httpConnector>
-                        <port>8091</port>
-                        <host>localhost</host>
-                    </httpConnector>
-                    <webApp>
-                        <overrideDescriptor>src/main/web/WEB-INF/web.xml</overrideDescriptor>
-                        <resourceBases>
-                            <resourceBase>src/main/web</resourceBase>
-                        </resourceBases>
-                        <contextPath>/test</contextPath>
-                    </webApp>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <port>8091</port>
+                        </connector>
+                    </connectors>
+                    <webAppSourceDirectory>src/main/web</webAppSourceDirectory>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <contextPath>/test</contextPath>
                     <stopPort>9966</stopPort>
                     <stopKey>jetty-stop</stopKey>
-                    <scanIntervalSeconds>5</scanIntervalSeconds>
                 </configuration>
             </plugin>
-
-            <!--            <plugin>-->
-            <!--                <groupId>org.mortbay.jetty</groupId>-->
-            <!--                <artifactId>maven-jetty-plugin</artifactId>-->
-            <!--                <version>6.1.26</version>-->
-            <!--                <configuration>-->
-            <!--                    <webAppSourceDirectory>src/main/web</webAppSourceDirectory>-->
-            <!--                    <scanIntervalSeconds>10</scanIntervalSeconds>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
         </plugins>
     </build>
 

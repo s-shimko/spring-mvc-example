@@ -17,9 +17,9 @@ public class JSPHandling {
 	@Autowired
 	private SuperService superService;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
-		model.addAttribute("message", "Guber taxi is the best taxi in the world!");
+		model.addAttribute("message", "Guberddd taxi is the best taxi in the world!");
 		return "index";
 	}
 
